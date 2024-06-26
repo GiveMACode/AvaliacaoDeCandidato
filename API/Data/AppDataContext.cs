@@ -25,6 +25,4 @@ public class AppDataContext : DbContext
             .WithOne(t => t.Pessoa)
             .HasForeignKey(t => t.PessoaId);
     }
-
-
     }

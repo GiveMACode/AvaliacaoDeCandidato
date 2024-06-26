@@ -4,7 +4,7 @@ namespace API;
 
 public class Telefone
 {
-    public int TelefoneId { get; set; }
+    public string TelefoneId { get; set; }
     public string Tipo { get; set; } // Celular, Residencial, Comercial
     public string Numero { get; set; }
 
