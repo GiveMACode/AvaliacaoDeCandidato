@@ -18,7 +18,6 @@ public class AppDataContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
         //utilizando model builder para a definicao das classes e chaves primarias e estrangeiras
         modelBuilder.Entity<Pessoa>()
             .HasMany(p => p.Telefones)

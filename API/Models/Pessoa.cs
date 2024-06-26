@@ -30,6 +30,5 @@ public class Pessoa
     {
         EstaAtivo = false;
     }
-
 }
 

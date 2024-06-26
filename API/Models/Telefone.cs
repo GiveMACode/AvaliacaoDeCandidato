@@ -9,6 +9,6 @@ public class Telefone
     public string Numero { get; set; }
 
     // Chave estrangeira para a classe Pessoa
-    public int PessoaId { get; set; }
+    public string PessoaId { get; set; }
     public Pessoa Pessoa { get; set; }
 }
