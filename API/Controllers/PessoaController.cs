@@ -32,7 +32,7 @@ public class PessoaController : ControllerBase
         {
             return NotFound();
         }
-        return Ok(ListarPorId);
+        return Ok(listaAtivos);
     }
         
 
