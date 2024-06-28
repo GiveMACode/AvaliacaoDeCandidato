@@ -15,10 +15,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDataContext>(options => 
     options.UseSqlite("Data Source=ApiDataBase.db;Cache=shared"));
 builder.Services.AddControllers();
+//CORS
+builder.Services.AddCors(options =>
+    options.AddPolicy("Acesso Total",
+        configs => configs
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod())
+);
+
 
 var app = builder.Build();
 
-//Liberacao CORS
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
