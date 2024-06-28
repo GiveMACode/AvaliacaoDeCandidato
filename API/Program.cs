@@ -14,15 +14,11 @@ builder.Services.AddSwaggerGen();
 //builder de configuracao do database com SQLITE
 builder.Services.AddDbContext<AppDataContext>(options => 
     options.UseSqlite("Data Source=ApiDataBase.db;Cache=shared"));
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
 //Liberacao CORS
-app.UseCors(
-    cors => cors.AllowAnyOrigin().
-        AllowAnyMethod().
-        AllowAnyHeader()
-);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -30,6 +26,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+app.UseHttpsRedirection();
+app.MapControllers();
 
 
 app.Run();
