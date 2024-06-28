@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20240626185058_ApiMigracao")]
+    [Migration("20240628174837_ApiMigracao")]
     partial class ApiMigracao
     {
         /// <inheritdoc />
@@ -22,7 +22,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Pessoa", b =>
                 {
-                    b.Property<string>("PessoaId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CPF")
@@ -39,29 +40,29 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("PessoaId");
+                    b.HasKey("Id");
 
                     b.ToTable("Pessoas");
                 });
 
             modelBuilder.Entity("API.Telefone", b =>
                 {
-                    b.Property<string>("TelefoneId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Numero")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PessoaId")
-                        .IsRequired()
+                    b.Property<Guid>("PessoaId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Tipo")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("TelefoneId");
+                    b.HasKey("Id");
 
                     b.HasIndex("PessoaId");
 

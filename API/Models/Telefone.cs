@@ -4,11 +4,11 @@ namespace API;
 
 public class Telefone
 {
-    public Guid TelefoneId { get; set; }
+    public Guid Id { get; set; }
     public string Tipo { get; set; } // Celular, Residencial, Comercial
     public string Numero { get; set; }
 
     // Chave estrangeira para a classe Pessoa
-    public string PessoaId { get; set; }
+    public Guid PessoaId { get; set; }
     public Pessoa Pessoa { get; set; }
 }

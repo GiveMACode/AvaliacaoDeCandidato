@@ -15,7 +15,7 @@ namespace API.Migrations
                 name: "Pessoas",
                 columns: table => new
                 {
-                    PessoaId = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Nome = table.Column<string>(type: "TEXT", nullable: false),
                     CPF = table.Column<string>(type: "TEXT", nullable: false),
                     DataNascimento = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -23,26 +23,26 @@ namespace API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pessoas", x => x.PessoaId);
+                    table.PrimaryKey("PK_Pessoas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Telefones",
                 columns: table => new
                 {
-                    TelefoneId = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Tipo = table.Column<string>(type: "TEXT", nullable: false),
                     Numero = table.Column<string>(type: "TEXT", nullable: false),
-                    PessoaId = table.Column<string>(type: "TEXT", nullable: false)
+                    PessoaId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Telefones", x => x.TelefoneId);
+                    table.PrimaryKey("PK_Telefones", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Telefones_Pessoas_PessoaId",
                         column: x => x.PessoaId,
                         principalTable: "Pessoas",
-                        principalColumn: "PessoaId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

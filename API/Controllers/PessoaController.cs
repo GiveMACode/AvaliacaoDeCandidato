@@ -26,7 +26,7 @@ public class PessoaController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult ListarPorId(Guid id)
     {
-        var listaAtivos = _context.Pessoas.Include(t => t.Telefones).SingleOrDefault(d => d.PessoaId == id);
+        var listaAtivos = _context.Pessoas.Include(t => t.Telefones).SingleOrDefault(d => d.Id == id);
     
         if(ListarPorId == null)
         {
