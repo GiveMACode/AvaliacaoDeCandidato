@@ -24,7 +24,7 @@ public class PessoaController : ControllerBase
 
     //api/pessoa/72345678-l234-1234-1234-1234-12E4g6789i1  GET
     [HttpGet("{id}")]
-    public IActionResult ListarPorId(string id)
+    public IActionResult ListarPorId(Guid id)
     {
         var listaAtivos = _context.Pessoas.Include(t => t.Telefones).SingleOrDefault(d => d.PessoaId == id);
     
@@ -34,7 +34,5 @@ public class PessoaController : ControllerBase
         }
         return Ok(listaAtivos);
     }
-        
-
 
 }

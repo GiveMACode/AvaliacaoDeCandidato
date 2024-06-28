@@ -1,4 +1,6 @@
-﻿namespace API.Models;
+﻿using System.Xml;
+
+namespace API.Models;
 
 public class Pessoa
 {   
@@ -6,11 +8,11 @@ public class Pessoa
     //definicao da logica para o atributo EstaAtivo para quando for criado 
     public Pessoa()
     {
-        PessoaId = Guid.NewGuid().ToString();
-        EstaAtivo = true;
+        Telefones = new List<Telefone>();
+        EstaAtivo = true; 
     }
 
-    public string PessoaId { get; set; }
+    public Guid PessoaId { get; set; }
     public string Nome { get; set; }
     public string CPF { get; set; }
     public DateTime DataNascimento { get; set; }
@@ -19,14 +21,14 @@ public class Pessoa
     public ICollection<Telefone> Telefones { get; set; }
 
     //metodo para atualizacao de informacoes da classe Pessoa s/ Telefone
-    public void Update(string nome, string cpf, DateTime dataNascimento)
+    public void Atualizar(string nome, string cpf, DateTime dataNascimento, Telefone telefone)
     {
      nome = Nome;
      cpf = CPF;
      dataNascimento = DataNascimento;   
     }
     //exclusao logica
-    public void Delete()
+    public void Deletar()
     {
         EstaAtivo = false;
     }
