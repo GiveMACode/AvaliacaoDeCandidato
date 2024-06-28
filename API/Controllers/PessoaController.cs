@@ -73,6 +73,24 @@ public class PessoaController : ControllerBase
         return NoContent();
 
     }
+
+    [HttpPost("{id}/telefones")]
+    public IActionResult AtualizarTelefone(Guid id, Telefone telefone)    
+    {
+        telefone.PessoaId = id;
+            
+            var pessoa = _context.Pessoas.Any(d => d.Id == id);
+
+            if (!pessoa) 
+            {
+                return NotFound();
+            }
+
+            _context.Telefones.Add(telefone);
+            _context.SaveChanges();
+
+            return NoContent();
+    }
 }
 
 
