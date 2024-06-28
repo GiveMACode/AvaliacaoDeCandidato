@@ -54,7 +54,25 @@ public class PessoaController : ControllerBase
         new { id = pessoa.Id }, pessoa);
     }
 
+    //api/pessoa/72345678-l234-1234-1234-1234-12E4g6789i1  DELETE    
+    [HttpDelete("{id}")]
+    public IActionResult DeletarLogico(Guid id)
+    {
+
+        var pessoaDelete = _context.Pessoas.SingleOrDefault(d => d.Id == id);
+
+        if (pessoaDelete == null)
+        {
+            return NotFound();
+        }
+
+        pessoaDelete.Deletar();
+
+        _context.SaveChanges();
+
+        return NoContent();
+
     }
-    
+}
 
 
