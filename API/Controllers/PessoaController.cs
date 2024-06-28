@@ -30,7 +30,6 @@ public class PessoaController : ControllerBase
         }
         return Ok(listaAtivos);
     }
-
     //api/pessoa/72345678-l234-1234-1234-1234-12E4g6789i1  GET
     [HttpGet("{id}")]
     public IActionResult ListarPorId(Guid id)
@@ -44,6 +43,18 @@ public class PessoaController : ControllerBase
         return Ok(listaAtivos);
     }
 
-   
+    // api/pessoa/ POST
+    [HttpPost]
+    public IActionResult CadastrarPessoa(Pessoa pessoa)
+    {
+        _context.Pessoas.Add(pessoa);
+        _context.SaveChanges();
 
-}
+        return CreatedAtAction(nameof(ListarPorId),
+        new { id = pessoa.Id }, pessoa);
+    }
+
+    }
+    
+
+
