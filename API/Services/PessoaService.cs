@@ -1,9 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using API.Data;
+using API.Models;
+using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Services;
 
-public class PessoaService : ServiceCollection
+public class PessoaService(AppDataContext context) : ServiceCollection
 {
+        
     //Validar Data de Nascimento
     public class ValidarDataNascimentoAttribute : ValidationAttribute
     {
@@ -60,7 +65,7 @@ public class PessoaService : ServiceCollection
             return cpf.EndsWith(digit);
         }
     }
-    //
+    //Validar CPF
     public class ValidarCPFAttribute : ValidationAttribute
 {
     public override bool IsValid(object value)
@@ -73,5 +78,20 @@ public class PessoaService : ServiceCollection
         return ValidarCPF.Validar(cpf);
     }
 }
-}
 
+    //instancia DBContext
+    private readonly AppDataContext _context = context;
+
+    //paginacao verificacao em query
+    //retornos items. 
+    public async Task<PaginacaoService.ListaPaginada<Pessoa>> ListarPessoasPaginada(int paginaIndex, int paginaTamanho)
+    {
+        var query = _context.Pessoas.AsQueryable();
+        var contagem = await query.CountAsync();
+        var items = await query.Skip((paginaIndex - 1) * paginaTamanho).Take(paginaTamanho).ToListAsync();
+        
+        return new PaginacaoService.ListaPaginada<Pessoa>(items, contagem, paginaIndex, paginaTamanho);
+    }
+
+}
+    
