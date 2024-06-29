@@ -20,6 +20,7 @@ public class PessoaController : ControllerBase
     // private readonly IMapper _mapper;
 
     //api/pessoa GET
+    //listar todas as pessoas ativas, nao exclusas
     [HttpGet]
     public IActionResult ListarPessoasAtivas()
     {
@@ -30,6 +31,8 @@ public class PessoaController : ControllerBase
         }
         return Ok(listaAtivos);
     }
+
+    //listar Pessoas por id
     //api/pessoa/72345678-l234-1234-1234-1234-12E4g6789i1  GET
     [HttpGet("{id}")]
     public IActionResult ListarPorId(Guid id)
@@ -43,6 +46,7 @@ public class PessoaController : ControllerBase
         return Ok(listaAtivos);
     }
 
+    //Cadastrar Pessoas
     // api/pessoa/ POST
     [HttpPost]
     public IActionResult CadastrarPessoa(Pessoa pessoa)
@@ -54,6 +58,7 @@ public class PessoaController : ControllerBase
         new { id = pessoa.Id }, pessoa);
     }
 
+    //Deletar logico
     //api/pessoa/72345678-l234-1234-1234-1234-12E4g6789i1  DELETE    
     [HttpDelete("{id}")]
     public IActionResult DeletarLogico(Guid id)
@@ -74,6 +79,7 @@ public class PessoaController : ControllerBase
 
     }
 
+    //Cadastrar telefone para a Pessoa por ID
     [HttpPost("{id}/telefones")]
     public IActionResult AtualizarTelefone(Guid id, Telefone telefone)    
     {
@@ -91,6 +97,21 @@ public class PessoaController : ControllerBase
 
             return NoContent();
     }
+
+    //listar todas as pessoas exclusas logicamente
+    [HttpGet]
+    public IActionResult ListarPessoasExcluidas()
+    {
+        var listaExclusa = _context.Pessoas.Where(d => d.EstaAtivo).ToList();
+        if (listaExclusa == null)
+        {
+        return Ok(listaExclusa);    
+        }
+        
+        return NotFound("No Active people found");
+    }
+    
+
 }
 
 
