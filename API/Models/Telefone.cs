@@ -13,11 +13,11 @@ public class Telefone
     
     [Required(ErrorMessage = "O número de telefone é obrigatório.")]
     [PhoneValidation(ErrorMessage = "O formato do número de telefone é inválido.")]
-     public string Numero { get; set; }
+     public string? Numero { get; set; }
 
     // Chave estrangeira para a classe Pessoa
     public Guid PessoaId { get; set; }
-    public Pessoa Pessoa { get; set; }
+    public Pessoa? Pessoa { get; set; }
 }
 
 
