@@ -99,16 +99,16 @@ public class PessoaController : ControllerBase
     }
 
     //listar todas as pessoas exclusas logicamente
-    [HttpGet]
+    [HttpGet("nao-ativos")]
     public IActionResult ListarPessoasExcluidas()
     {
         var listaExclusa = _context.Pessoas.Where(d => d.EstaAtivo).ToList();
-        if (listaExclusa == null)
+        if (listaExclusa == null || listaExclusa.Count == 0)
         {
-        return Ok(listaExclusa);    
+        return NotFound("Nenhuma pessoa inativa encontrada");    
         }
         
-        return NotFound("No Active people found");
+        return Ok(listaExclusa);
     }
     
 
