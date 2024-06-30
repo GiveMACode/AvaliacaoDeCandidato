@@ -19,14 +19,14 @@ public class Pessoa
     [MinLength(2, ErrorMessage = "O nome deve ter no mínimo 3 caracteres!")]
     [MaxLength(256, ErrorMessage = "O nome deve ter no máximo 256 caracteres!")]
     [Required(ErrorMessage = "Campo Obrigatório")]
-    public string Nome { get; set; }
+    public string? Nome { get; set; }
     
     
     //tratamento de CPF
     [Required(ErrorMessage = "O CPF é obrigatório.")]
     [StringLength(11, MinimumLength = 11, ErrorMessage = "O CPF deve conter exatamente 11 dígitos.")]
     [ValidarCPF(ErrorMessage = "CPF inválido.")]
-    public string CPF { get; set; }
+    public string? CPF { get; set; }
     //
     [Required(ErrorMessage = "A data de nascimento é obrigatória.")]
     [DataType(DataType.Date)]

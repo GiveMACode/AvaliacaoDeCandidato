@@ -15,7 +15,7 @@ public class PessoaService(AppDataContext context) : ServiceCollection
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             DateTime dataNascimento = (DateTime)value;
-
+            
             if (dataNascimento > DateTime.Now)
             {
                 return new ValidationResult(ErrorMessage);
@@ -70,7 +70,7 @@ public class PessoaService(AppDataContext context) : ServiceCollection
 {
     public override bool IsValid(object value)
     {
-        string cpf = value as string;
+        string? cpf = value as string;
 
         if (cpf == null)
             return false;
