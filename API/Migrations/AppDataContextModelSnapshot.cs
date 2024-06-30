@@ -39,9 +39,6 @@ namespace API.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("PessoaId")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.ToTable("Pessoas");
@@ -74,9 +71,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Pessoa", "Pessoa")
                         .WithMany("Telefones")
-                        .HasForeignKey("PessoaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PessoaId");
 
                     b.Navigation("Pessoa");
                 });

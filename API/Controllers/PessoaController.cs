@@ -37,20 +37,21 @@ public class PessoaController : ControllerBase
     //listar Pessoas por id
     //api/pessoa/72345678-l234-1234-1234-1234-12E4g6789i1  GET
     [HttpGet("{id}")]
-    public IActionResult ListarPorId(Guid id)
+    public IActionResult BuscarPorId(Guid id)
     {
-    
-        var listaAtivos = _context.Pessoas.SingleOrDefault(d => d.Id == id);
+        var buscarAtivos = _context.Pessoas.Include(t => t.Telefones).SingleOrDefault(d => d.Id == id);
 
-        if (listaAtivos == null)
+        if (buscarAtivos == null)
         {
             return NotFound();
         }
-        return Ok(listaAtivos);
-    
-}
-    
-    
+
+        return Ok(buscarAtivos);
+
+
+    }
+
+
 
     //Cadastrar Pessoas  
     // api/pessoa/ POST
@@ -60,7 +61,7 @@ public class PessoaController : ControllerBase
             _context.Pessoas.Add(pessoa);
             _context.SaveChanges();
 
-            return CreatedAtAction(nameof(ListarPorId), new { id = pessoa.Id }, pessoa);
+            return CreatedAtAction(nameof(BuscarPorId), new { id = pessoa.Id }, pessoa);
         }
 
     //Deletar logico
@@ -107,7 +108,7 @@ public class PessoaController : ControllerBase
     [HttpGet("nao-ativos")]
     public IActionResult ListarPessoasExcluidas()
     {
-        var listaExclusa = _context.Pessoas.Where(d => d.EstaAtivo == false).ToList();
+        var listaExclusa = _context.Pessoas.Where(d => d.EstaAtivo).ToList();
         if (listaExclusa == null || listaExclusa.Count == 0)
         {
         return NotFound("Nenhuma pessoa inativa encontrada");    
@@ -116,5 +117,3 @@ public class PessoaController : ControllerBase
         return Ok(listaExclusa);
     }
 }
-
-

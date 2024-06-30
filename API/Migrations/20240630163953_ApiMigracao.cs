@@ -16,7 +16,6 @@ namespace API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    PessoaId = table.Column<Guid>(type: "TEXT", nullable: false),
                     Nome = table.Column<string>(type: "TEXT", maxLength: 256, nullable: false),
                     CPF = table.Column<string>(type: "TEXT", maxLength: 11, nullable: false),
                     DataNascimento = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -43,8 +42,7 @@ namespace API.Migrations
                         name: "FK_Telefones_Pessoas_PessoaId",
                         column: x => x.PessoaId,
                         principalTable: "Pessoas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20240630000834_ApiMigracao")]
+    [Migration("20240630163953_ApiMigracao")]
     partial class ApiMigracao
     {
         /// <inheritdoc />
@@ -40,9 +40,6 @@ namespace API.Migrations
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("PessoaId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -77,9 +74,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Pessoa", "Pessoa")
                         .WithMany("Telefones")
-                        .HasForeignKey("PessoaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PessoaId");
 
                     b.Navigation("Pessoa");
                 });
