@@ -1,6 +1,34 @@
-@API_HostAddress = http://localhost:5097
 
-GET {{API_HostAddress}}/weatherforecast/
+# {
+#     "id": "88cc38ad-a838-4fad-9c42-35eb6056851a",
+#     "nome": "Vinicius Nascimento Atanasio",
+#     "cpf": "13324990904",
+#     "dataNascimento": "2001-09-28T00:00:00",
+#     "estaAtivo": true,
+#     "telefones": []
+#   }
+//listar todas ativas
+GET http://localhost:5097/api/pessoa
 Accept: application/json
+
+//Listar por id
+//// api/dev-events/88cc38ad-a838-4fad-9c42-35eb6056851a
+
+GET http://localhost:5097/api/pessoa/88cc38ad-a838-4fad-9c42-35eb6056851a
+Accept: application/json
+
+
+# Criar uma nova pessoa
+POST http://localhost:5097/api/pessoa
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nome": "Vinicius Nascimento Atanasio",
+  "cpf": "13324990904",
+  "dataNascimento": "2001-09-28T00:00:00",
+  "estaAtivo": true,
+  "telefones": []
+}
 
 ###
