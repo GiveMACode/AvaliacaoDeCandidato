@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20240629142026_ApiMigracao")]
+    [Migration("20240630000834_ApiMigracao")]
     partial class ApiMigracao
     {
         /// <inheritdoc />
@@ -40,6 +40,9 @@ namespace API.Migrations
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("PessoaId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

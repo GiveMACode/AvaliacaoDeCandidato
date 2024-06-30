@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata;
 using API.Models;
+using System.Linq.Expressions;
+using Microsoft.Data.Sqlite;
 
 namespace API.Controllers;
 
@@ -37,26 +39,29 @@ public class PessoaController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult ListarPorId(Guid id)
     {
-        var listaAtivos = _context.Pessoas.Include(t => t.Telefones).SingleOrDefault(d => d.Id == id);
+    
+        var listaAtivos = _context.Pessoas.SingleOrDefault(d => d.Id == id);
 
-        if (ListarPorId == null)
+        if (listaAtivos == null)
         {
             return NotFound();
         }
         return Ok(listaAtivos);
-    }
+    
+}
+    
+    
 
-    //Cadastrar Pessoas
+    //Cadastrar Pessoas  
     // api/pessoa/ POST
     [HttpPost]
-    public IActionResult CadastrarPessoa(Pessoa pessoa)
-    {
-        _context.Pessoas.Add(pessoa);
-        _context.SaveChanges();
+        public IActionResult CadastrarPessoas(Pessoa pessoa)
+        {
+            _context.Pessoas.Add(pessoa);
+            _context.SaveChanges();
 
-        return CreatedAtAction(nameof(ListarPorId),
-        new { id = pessoa.Id }, pessoa);
-    }
+            return CreatedAtAction(nameof(ListarPorId), new { id = pessoa.Id }, pessoa);
+        }
 
     //Deletar logico
     //api/pessoa/72345678-l234-1234-1234-1234-12E4g6789i1  DELETE    
@@ -80,7 +85,7 @@ public class PessoaController : ControllerBase
     }
 
     //Cadastrar telefone para a Pessoa por ID
-    [HttpPost("{id}/telefones")]
+    [HttpPut("{id}/telefones")]
     public IActionResult AtualizarTelefone(Guid id, Telefone telefone)    
     {
         telefone.PessoaId = id;
@@ -102,7 +107,7 @@ public class PessoaController : ControllerBase
     [HttpGet("nao-ativos")]
     public IActionResult ListarPessoasExcluidas()
     {
-        var listaExclusa = _context.Pessoas.Where(d => d.EstaAtivo).ToList();
+        var listaExclusa = _context.Pessoas.Where(d => d.EstaAtivo == false).ToList();
         if (listaExclusa == null || listaExclusa.Count == 0)
         {
         return NotFound("Nenhuma pessoa inativa encontrada");    
@@ -110,8 +115,6 @@ public class PessoaController : ControllerBase
         
         return Ok(listaExclusa);
     }
-    
-
 }
 
 
