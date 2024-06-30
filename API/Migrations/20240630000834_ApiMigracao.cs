@@ -16,6 +16,7 @@ namespace API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    PessoaId = table.Column<Guid>(type: "TEXT", nullable: false),
                     Nome = table.Column<string>(type: "TEXT", maxLength: 256, nullable: false),
                     CPF = table.Column<string>(type: "TEXT", maxLength: 11, nullable: false),
                     DataNascimento = table.Column<DateTime>(type: "TEXT", nullable: false),
