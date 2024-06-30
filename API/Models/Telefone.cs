@@ -17,7 +17,7 @@ public class Telefone
 
     // Chave estrangeira para a classe Pessoa
     public Guid PessoaId { get; set; }
-    public Pessoa Pessoa { get; set; }
+    public Pessoa? Pessoa { get; set; }
 }
 
 

@@ -38,7 +38,7 @@ public class Pessoa
     public bool EstaAtivo { get; set; }
 
     // Relação de um para muitos com Telefone
-    public ICollection<Telefone> Telefones { get; set; }
+    public ICollection<Telefone>? Telefones { get; set; }
 
 
     //metodo para atualizacao de informacoes da classe Pessoa s/ Telefone
