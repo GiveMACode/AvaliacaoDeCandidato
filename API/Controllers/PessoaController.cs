@@ -101,7 +101,7 @@ public class PessoaController : ControllerBase
             _context.Telefones.Add(telefone);
             _context.SaveChanges();
 
-            return NoContent();
+            return Ok("Alterado");
     }
 
     //listar todas as pessoas exclusas logicamente
