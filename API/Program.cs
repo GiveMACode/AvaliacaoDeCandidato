@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using API.Models;
 using API.Data;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using System.Text.Json.Serialization;
 
 
 
@@ -15,14 +16,21 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDataContext>(options => 
     options.UseSqlite("Data Source=ApiDataBase.db;Cache=shared"));
 builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
 //CORS
 builder.Services.AddCors(options =>
-    options.AddPolicy("Acesso Total",
-        configs => configs
-            .AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod())
-);
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
 
 
 var app = builder.Build();
@@ -34,7 +42,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 app.MapControllers();

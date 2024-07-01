@@ -19,9 +19,10 @@ public class AppDataContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         //utilizando model builder para a definicao das classes e chaves primarias e estrangeiras
-        modelBuilder.Entity<Pessoa>()
-            .HasMany(p => p.Telefones)
-            .WithOne(t => t.Pessoa)
-            .HasForeignKey(t => t.PessoaId);
+        modelBuilder.Entity<Telefone>()
+            .HasOne(t => t.Pessoa)
+            .WithMany(p => p.Telefones)
+            .HasForeignKey(t => t.PessoaId)
+            .IsRequired(false);
     }
     }
