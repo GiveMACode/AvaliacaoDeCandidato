@@ -8,7 +8,11 @@ using System.Threading.Tasks;
 public interface IUsuarioService
 {
     Task<Usuario> CriarUsuarioAsync(string nomeUsuario, string email, string senha, string nome, string cpf, DateTime dataNascimento);
-}
+    Task ExcluirUsuarioAsync(Guid usuarioId);
+
+    Task<bool> VerificarLoginAtivoAsync(string nomeUsuario);
+}   
+
 
 public class UsuarioService : IUsuarioService
 {
@@ -60,9 +64,36 @@ public class UsuarioService : IUsuarioService
         return usuario;
     }
 
+    public async Task ExcluirUsuarioAsync(Guid usuarioId)
+    {
+        var usuario = await _context.Usuario.FindAsync(usuarioId);
+        if (usuario == null)
+        {
+            throw new ArgumentException("Usuário não encontrado.");
+        }
+
+        usuario.EstaAtivo = true; // Marcando usuário como excluído logicamente
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<bool> VerificarLoginAtivoAsync(string nomeUsuario)
+    {
+        var usuario = await _context.Usuario.SingleOrDefaultAsync(u => u.NomeUsuario == nomeUsuario);
+        if (usuario == null)
+        {
+            return false; // Usuário não encontrado
+        }
+
+        return usuario.EstaAtivo;
+    }
     // Método para hash da senha usando BCrypt
     private string HashSenha(string senha)
+
+    
     {
         return BCrypt.Net.BCrypt.HashPassword(senha);
     }
-}
+
+    
+    }
+

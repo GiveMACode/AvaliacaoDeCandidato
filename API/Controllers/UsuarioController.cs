@@ -1,5 +1,6 @@
 ﻿using API.Data;
 using API.Models;
+using API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -57,6 +58,32 @@ public class UsuarioController : ControllerBase
         catch (Exception ex)
         {
             return StatusCode(500, $"Erro interno ao criar o usuário: {ex.Message}");
+        }
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> ExcluirUsuario(Guid id)
+    {
+        // Verificar se o usuário está logado e ativo
+        var nomeUsuario = User.Identity.Name;
+        var loginAtivo = await _usuarioService.VerificarLoginAtivoAsync(nomeUsuario);
+        if (!loginAtivo)
+        {
+            return Forbid(); // Acesso negado se o login não estiver ativo
+        }
+
+        try
+        {
+            await _usuarioService.ExcluirUsuarioAsync(id);
+            return NoContent(); // Retornar 204 No Content em caso de sucesso na exclusão
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message); // Retornar 404 Not Found se o usuário não existir
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Erro interno ao excluir o usuário: {ex.Message}");
         }
     }
 }
