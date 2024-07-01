@@ -1,11 +1,13 @@
 import React from 'react';
+import Navbar from './components/Navbar';
 import PessoaList from './components/PessoaList';
 import PessoaForm from './components/PessoaForm';
+import './App.css';
 
 const App = () => {
   return (
     <div>
-      <h1>Gerenciamento de Pessoas</h1>
+      <Navbar />
       <PessoaForm />
       <PessoaList />
     </div>
