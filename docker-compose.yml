@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./API
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    networks:
+      - minha-api-network
+    volumes:
+      - ./API:/app
+
+  frontend:
+    build:
+      context: ./minha-api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    networks:
+      - minha-api-network
+    volumes:
+      - ./minha-api:/app
+
+networks:
+  minha-api-network:
+    driver: bridge
