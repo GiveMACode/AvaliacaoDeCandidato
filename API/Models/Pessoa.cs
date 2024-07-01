@@ -40,6 +40,10 @@ public class Pessoa
     // Relação de um para muitos com Telefone
     public ICollection<Telefone>? Telefones { get; set; }
 
+    // Relacao de um para um com Usuario
+
+    public Usuario Usuario { get; set; }
+
 
     //metodo para atualizacao de informacoes da classe Pessoa s/ Telefone
     public void Atualizar(string? nome, string? cpf, DateTime dataNascimento, Telefone telefone)
