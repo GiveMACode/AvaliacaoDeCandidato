@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import api from '../services/api';
+import Error from './Error';
 
 const PessoaList = () => {
   const [pessoas, setPessoas] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPessoas = async () => {
@@ -10,7 +12,7 @@ const PessoaList = () => {
         const response = await api.get('/');
         setPessoas(response.data);
       } catch (error) {
-        console.error("Erro ao buscar pessoas", error);
+        setError('Erro ao buscar pessoas');
       }
     };
 
@@ -18,8 +20,9 @@ const PessoaList = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Lista de Pessoas</h1>
+    <div id="listar-pessoas" className="container">
+      <h2>Lista de Pessoas</h2>
+      {error && <Error message={error} />}
       <ul>
         {pessoas.map((pessoa) => (
           <li key={pessoa.id}>
