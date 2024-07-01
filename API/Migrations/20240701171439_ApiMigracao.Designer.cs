@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20240630163953_ApiMigracao")]
+    [Migration("20240701171439_ApiMigracao")]
     partial class ApiMigracao
     {
         /// <inheritdoc />
@@ -47,6 +47,37 @@ namespace API.Migrations
                     b.ToTable("Pessoas");
                 });
 
+            modelBuilder.Entity("API.Models.Usuario", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NomeUsuario")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("PessoaId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("PessoaId")
+                        .IsUnique();
+
+                    b.ToTable("Usuario");
+                });
+
             modelBuilder.Entity("API.Telefone", b =>
                 {
                     b.Property<Guid>("Id")
@@ -70,6 +101,17 @@ namespace API.Migrations
                     b.ToTable("Telefones");
                 });
 
+            modelBuilder.Entity("API.Models.Usuario", b =>
+                {
+                    b.HasOne("API.Models.Pessoa", "Pessoa")
+                        .WithOne("Usuario")
+                        .HasForeignKey("API.Models.Usuario", "PessoaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pessoa");
+                });
+
             modelBuilder.Entity("API.Telefone", b =>
                 {
                     b.HasOne("API.Models.Pessoa", "Pessoa")
@@ -82,6 +124,9 @@ namespace API.Migrations
             modelBuilder.Entity("API.Models.Pessoa", b =>
                 {
                     b.Navigation("Telefones");
+
+                    b.Navigation("Usuario")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
