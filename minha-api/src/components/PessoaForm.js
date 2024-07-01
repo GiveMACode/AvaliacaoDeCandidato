@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import api from '../services/api';
 import Error from './Error';
 
-const PessoaForm = () => {
+const PessoaForm = ({ onPessoaAdded }) => {
   const [nome, setNome] = useState('');
   const [cpf, setCpf] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
@@ -21,6 +21,7 @@ const PessoaForm = () => {
       setCpf('');
       setDataNascimento('');
       setError(null);
+      onPessoaAdded(); // Notify parent component about the new person
     } catch (error) {
       setError('Erro ao adicionar pessoa');
     }
