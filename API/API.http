@@ -7,28 +7,52 @@
 #     "estaAtivo": true,
 #     "telefones": []
 #   }
-//listar todas ativas
+###listar todas ativas
 GET http://localhost:5097/api/pessoa
 Accept: application/json
 
-//Listar por id
-//// api/dev-events/88cc38ad-a838-4fad-9c42-35eb6056851a
-
-GET http://localhost:5097/api/pessoa/88cc38ad-a838-4fad-9c42-35eb6056851a
+###Listar por id
+//// api/pessoa/88cc38ad-a838-4fad-9c42-35eb6056851a
+GET http://localhost:5097/api/pessoa/d2695d32-ceff-473f-90ec-90c2c3d0d3a0/
 Accept: application/json
 
-
-# Criar uma nova pessoa
+///pessoa/d2695d32-ceff-473f-90ec-90c2c3d0d3a0
+### Criar uma nova pessoa
 POST http://localhost:5097/api/pessoa
 Content-Type: application/json
 Accept: application/json
 
 {
-  "nome": "Vinicius Nascimento Atanasio",
-  "cpf": "13324990904",
+  "nome": "Teste",
+  "cpf": "31280386002",
   "dataNascimento": "2001-09-28T00:00:00",
   "estaAtivo": true,
-  "telefones": []
+  "telefones": [
+    {
+      "tipo": 1,
+      "numero": "(11) 3111-1210"
+    }]
 }
 
 ###
+DELETE http://localhost:5097/api/pessoa/d2695d32-ceff-473f-90ec-90c2c3d0d3a0
+Content-Type: application/json
+Accept: application/json
+
+###Editar por id /api/pessoa/{id}/telefones
+PUT http://localhost:5097/api/pessoa/895513f6-0683-4d54-a356-ef5155d94427/telefones
+Content-Type: application/json
+Accept: application/json
+{
+    {
+  "nome": "Teste",
+  "cpf": "31280386002",
+  "dataNascimento": "2001-09-28T00:00:00",
+  "estaAtivo": true,
+  "telefones": [
+    {
+      "tipo": 1,
+      "numero": "(11) 3111-1210"
+    }]
+}
+}
