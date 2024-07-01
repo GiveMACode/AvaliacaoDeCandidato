@@ -45,10 +45,37 @@ namespace API.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Usuario",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    NomeUsuario = table.Column<string>(type: "TEXT", maxLength: 16, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    Senha = table.Column<string>(type: "TEXT", maxLength: 16, nullable: false),
+                    PessoaId = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuario", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Usuario_Pessoas_PessoaId",
+                        column: x => x.PessoaId,
+                        principalTable: "Pessoas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Telefones_PessoaId",
                 table: "Telefones",
                 column: "PessoaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuario_PessoaId",
+                table: "Usuario",
+                column: "PessoaId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -56,6 +83,9 @@ namespace API.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Telefones");
+
+            migrationBuilder.DropTable(
+                name: "Usuario");
 
             migrationBuilder.DropTable(
                 name: "Pessoas");
